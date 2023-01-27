@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}HOME{% endblock %}
+
+{% block content %}
+<h2>Informacija</h2>
+<ul>
+    <li>Projektu: {{ projektu_kiekis }}</li>
+    <li>Darbuotoju: {{ darbuotoju_kiekis }}</li>
+    <li>Klientu: {{ klientu_kiekis }}</li>
+    <li>Jus cia lankotes {{vizitai}} -a karta.</li>
+</ul>
+{% endblock %}

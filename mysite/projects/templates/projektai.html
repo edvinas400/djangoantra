@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Projektai{% endblock %}
+
+{% block content %}
+{% load static %}
+<h2>Projektai</h2>
+{% if projektai %}
+    {% for projektas in projektai %}
+        <div class="col-md-3 d-flex align-items-stretch">
+          <div class="card mb-3 shadow-sm">
+            {% if projektas.foto %}
+              <img src="{{ projektas.foto.url }}" class="card-img-top" alt="...">
+            {% else %}
+              <img src="{% static 'img/no-image.png' %}" class="card-img-top">
+            {% endif %}
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2 text-muted">{{ projektas.klientas }}</h6>
+              <p class="card-text"><a href="{{ projektas.id }}">{{ projektas.pavadinimas }}</a></p>
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+{% else %}
+<p>Šiuo metu projektu nera.</p>
+{% endif %}
+<div class="container">
+    <nav aria-label="...">
+        {% if page_obj.has_other_pages %}
+        <ul class="pagination pagination-sm">
+            {% for i in page_obj.paginator.page_range %}
+            {% if page_obj.number == i %}
+            <li class="page-item active">
+                <a class="page-link">{{ i }}</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </nav>
+</div>
+{% endblock %}

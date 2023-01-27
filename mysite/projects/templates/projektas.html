@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Projektas{% endblock %}
+
+{% block content %}
+{% load static %}
+<h2>Projekto informacija</h2>
+<div class="col-sm-3 d-flex align-items-stretch">
+    <div>
+        {% if projektas.foto %}
+        <img src="{{ projektas.foto.url }}" class="card-img-top" alt="...">
+        {% else %}
+        <img src="{% static 'img/no-image.png' %}" class="card-img-top">
+        {% endif %}
+    </div>
+</div>
+<p><b>Pavadinimas:</b> {{ projektas.pavadinimas }}</p>
+<p><b>Pradzios data:</b> {{ projektas.datapr }}</p>
+<p><b>Pabaigos data:</b> {{ projektas.datapb }}</p>
+<p><b>Klientas:</b> {{ projektas.klientas }}</p>
+<p><b>Darbuotojai:</b> {{ projektas.display_darbuotojai }}</p>
+<p><b>Darbai:</b> {{ projektas.display_darbai }}</p>
+<p><b>Aprasymas:</b> {{ projektas.aprasymas | safe}}</p>
+<h4>Saskaitos:</b></h4>
+{% for saskaita in projektas.saskaitos.all %}
+<table class="table table-bordered table-sm">
+    <thead>
+    <tr>
+        <th colspan=2><b>Data: {{saskaita.data}}</b></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for darbas in saskaita.darbai.all %}
+    <tr>
+        <td>{{darbas.pavadinimas}}</td>
+        <td>{{darbas.kaina}}</td>
+    </tr>
+
+    {% endfor %}
+    <tr>
+        <td><b>Bendra suma:</b></td>
+        <td>{{ saskaita.suma }}</td>
+    </tr>
+    </tbody>
+</table>
+</br>
+{% endfor %}
+{% endblock %}
